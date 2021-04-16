@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Random_Word_Generator extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -20,6 +20,14 @@ class Main extends CI_Controller {
 	 */
 	public function index()
 	{
-		echo "Hello World!";
+		$word = bin2hex(random_bytes(7));
+		$count = $this->session->userdata('counter');
+		$count++;
+		$this->session->set_userdata('counter', $count);
+		$view_data = array(
+			'random_word' => $word,
+			'count' => $count
+		);
+        $this->load->view('random_word_generator/index.php', $view_data);
 	}
 }
